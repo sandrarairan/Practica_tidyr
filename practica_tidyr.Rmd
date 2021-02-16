@@ -1,0 +1,55 @@
+---
+title: "practica_tidyr"
+author: "Sandra Rairán"
+date: "2/16/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## Usando el conjunto de datos starwars mediante la libreria tidyr
+
+```{r dplyr,message = FALSE,warning=FALSE}
+library(tidyr)
+library(dplyr)
+```
+
+### pivot_longer
+
+
+```{r pivot_longer, echo=TRUE}
+rename(starwars, names = name )
+starwars %>% 
+  pivot_longer(cols = c("hair_color", "skin_color"),
+               names_to = "body", 
+               values_to = "caracteristica")
+
+#head(starwars)
+```
+
+
+### replace_na
+
+
+```{r na, echo=TRUE}
+sum(is.na(starwars$mass))
+
+starwars$mass <- replace_na(starwars$mass,  0)
+sum(is.na(starwars$mass))
+```
+
+### nest
+
+
+```{r nest, echo=TRUE}
+starwars_nest <- starwars %>% 
+  group_by(species) %>% 
+  nest()
+head(starwars_nest)
+```
+
+```{r nest1, echo=TRUE}
+
+starwars_nest$data[[2]]
+```
+
